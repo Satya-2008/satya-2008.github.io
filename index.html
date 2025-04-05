@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyber God Portal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 3rem;
+      color: #ff4444;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.1rem;
+      margin: 5px 0;
+    }
+    .qr {
+      margin: 20px 0;
+      width: 200px;
+      height: 200px;
+      background: #fff url('your_qr_code.png') center/cover no-repeat;
+      border-radius: 12px;
+    }
+    .form {
+      background-color: #1c1c1c;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    .form input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+    }
+    .form button {
+      padding: 12px;
+      width: 100%;
+      font-size: 1.1rem;
+      background-color: #00c853;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .form button:hover {
+      background-color: #00b341;
+    }
+    .timer {
+      font-size: 1rem;
+      margin-top: 20px;
+      color: #bbb;
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Net le le bhikhari</h1>
+  <p>₹10/hour | Ultra-fast | Kadma's Pride</p>
+  <p>Scan & Pay to get access</p>
+
+  <div class="qr"></div>
+
+  <div class="form">
+    <input type="text" id="name" placeholder="Enter your name" required />
+    <input type="tel" id="phone" placeholder="Enter your phone number" required />
+    <button id="loginBtn">Login & Start</button>
+  </div>
+
+  <div class="timer" id="timer" style="display: none;">
+    Session ends in <span id="time">60:00</span>
+  </div>
+
+  <div class="footer">© 2025 Satyakam Cyber Café | No paisa = No net 🤷‍♂️</div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      function grantAccess() {
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+
+        if (!name || !phone || phone.length < 10) {
+          alert('Please enter valid details.');
+          return;
+        }
+
+        alert(`Welcome ${name}! Internet access granted.`);
+        document.querySelector('.form').style.display = 'none';
+        document.getElementById('timer').style.display = 'block';
+        startTimer(60); // 60 minutes session
+      }
+
+      function startTimer(duration) {
+        let timer = duration * 60;
+        const display = document.getElementById('time');
+        const interval = setInterval(() => {
+          const minutes = Math.floor(timer / 60);
+          const seconds = timer % 60;
+          display.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+          if (--timer < 0) {
+            clearInterval(interval);
+            alert("Time's up! Please pay again to continue.");
+            location.reload();
+          }
+        }, 1000);
+      }
+
+      document.getElementById('loginBtn').addEventListener('click', grantAccess);
+    });
+  </script>
+
+</body>
+</html>
